@@ -12,8 +12,8 @@ public class MachineAdded extends AbstractEvent {
     private Long id;
     private String code;
     private String name;
-    private String spec;
     private String model;
+    private SpecId specId;
 
     public MachineAdded(Machine aggregate) {
         super(aggregate);

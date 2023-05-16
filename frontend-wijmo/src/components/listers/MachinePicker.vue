@@ -29,10 +29,10 @@
                                             Name :  {{item.name }}
                                         </v-list-item-subtitle>
                                         <v-list-item-subtitle>
-                                            Spec :  {{item.spec }}
+                                            Model :  {{item.model }}
                                         </v-list-item-subtitle>
                                         <v-list-item-subtitle>
-                                            Model :  {{item.model }}
+                                            SpecId :  {{item.specId }}
                                         </v-list-item-subtitle>
                                     </v-list-item-content>
 

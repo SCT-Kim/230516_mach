@@ -70,8 +70,8 @@
             me.newValue = {
                 'code': '',
                 'name': '',
-                'spec': '',
                 'model': '',
+                'specId': {},
             }
         },
         methods:{

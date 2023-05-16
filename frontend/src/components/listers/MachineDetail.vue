@@ -12,11 +12,9 @@
                 <String label="Name" v-model="item.name" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <String label="Spec" v-model="item.spec" :editMode="editMode" @change="change" />
-            </div>
-            <div>
                 <String label="Model" v-model="item.model" :editMode="editMode" @change="change" />
             </div>
+            <SpecId offline label="SpecId" v-model="item.specId" :editMode="false" :key="false" @change="change" />
         </v-card-text>
 
         <v-card-actions>
