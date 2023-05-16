@@ -21,9 +21,10 @@ public class Machine {
 
     private String name;
 
-    private String spec;
-
     private String model;
+
+    @Embedded
+    private SpecId specId;
 
     @PostPersist
     public void onPostPersist() {

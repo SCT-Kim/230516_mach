@@ -1,7 +1,7 @@
 <template>
     <div>
     
-        <h1 style = "position:absolute; left:23px; top:15px;">Machine</h1>
+        <h1 style = "position:absolute; left:23px; top:15px;">Spec</h1>
         <v-col style="margin-bottom:40px;">
             <div class="text-center">
                 <v-dialog
@@ -11,7 +11,7 @@
                         hide-overlay
                         transition="dialog-bottom-transition"
                 >
-                    <Machine :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
+                    <Spec :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
                             @add="append" v-if="tick"/>
                     <v-btn
                             style="position:absolute; top:2%; right:2%"
@@ -32,7 +32,7 @@
             </div>
         </v-col>
         <v-row>
-            <Machine :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
+            <Spec :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
         </v-row>
     </div>
 </template>
@@ -40,12 +40,12 @@
 <script>
 
     const axios = require('axios').default;
-    import Machine from './../Machine.vue';
+    import Spec from './../Spec.vue';
 
     export default {
-        name: 'MachineCards',
+        name: 'SpecCards',
         components: {
-            Machine,
+            Spec,
         },
         props: {
             offline: Boolean
@@ -69,18 +69,16 @@
 
                 var temp = null;
                 if(query!=null){
-                    temp = await axios.get(axios.fixUrl('/machines/' + query.apiPath), {params: query.parameters})
+                    temp = await axios.get(axios.fixUrl('/specs/' + query.apiPath), {params: query.parameters})
                 }else{
-                    temp = await axios.get(axios.fixUrl('/machines'))
+                    temp = await axios.get(axios.fixUrl('/specs'))
                 }
 
-                me.values = temp.data._embedded.machines;
+                me.values = temp.data._embedded.specs;
                 
                 me.newValue = {
-                    'code': '',
-                    'name': '',
-                    'model': '',
-                    'specId': {},
+                    'specCd': '',
+                    'specNm': '',
                 }
             },
 

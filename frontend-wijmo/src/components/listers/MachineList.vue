@@ -20,8 +20,8 @@
                             [ Id :  {{data.id }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ Code :  {{data.code }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ Name :  {{data.name }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Spec :  {{data.spec }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ Model :  {{data.model }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ SpecId :  {{data.specId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -105,8 +105,8 @@
             this.newValue = {
                 'code': '',
                 'name': '',
-                'spec': '',
                 'model': '',
+                'specId': {},
             }
         },
         methods: {

@@ -1,7 +1,6 @@
 <template>
     <div>
-    
-        <h1 style = "position:absolute; left:23px; top:15px;">Machine</h1>
+        <h1 style = "margin-left:4.5%; margin-top:-10px;">Spec</h1>
         <v-col style="margin-bottom:40px;">
             <div class="text-center">
                 <v-dialog
@@ -11,10 +10,11 @@
                         hide-overlay
                         transition="dialog-bottom-transition"
                 >
-                    <Machine :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
+                    <Spec :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
                             @add="append" v-if="tick"/>
+
                     <v-btn
-                            style="position:absolute; top:2%; right:2%"
+                            style="postition:absolute; top:2%; right:2%"
                             @click="closeDialog()"
                             depressed
                             icon 
@@ -23,6 +23,7 @@
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </v-dialog>
+
                 <v-btn  color="blue" fab dark large
                         style="position:fixed; bottom: 5%; right: 2%; z-index:99"
                         @click="openDialog=true;"
@@ -32,7 +33,7 @@
             </div>
         </v-col>
         <v-row>
-            <Machine :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
+            <Spec :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
         </v-row>
     </div>
 </template>
@@ -40,12 +41,12 @@
 <script>
 
     const axios = require('axios').default;
-    import Machine from './../Machine.vue';
+    import Spec from './../Spec.vue';
 
     export default {
-        name: 'MachineCards',
+        name: 'SpecManager',
         components: {
-            Machine,
+            Spec,
         },
         props: {
             offline: Boolean
@@ -57,33 +58,21 @@
             openDialog : false,
         }),
         async created() {
-            await this.search();
+            var me = this;
+            if(me.offline){
+                if(!me.values) me.values = [];
+                return;
+            } 
+
+            var temp = await axios.get(axios.fixUrl('/specs'))
+            me.values = temp.data._embedded.specs;
+            
+            me.newValue = {
+                'specCd': '',
+                'specNm': '',
+            }
         },
         methods:{
-            async search(query) {
-                var me = this;
-                if(me.offline){
-                    if(!me.values) me.values = [];
-                    return;
-                } 
-
-                var temp = null;
-                if(query!=null){
-                    temp = await axios.get(axios.fixUrl('/machines/' + query.apiPath), {params: query.parameters})
-                }else{
-                    temp = await axios.get(axios.fixUrl('/machines'))
-                }
-
-                me.values = temp.data._embedded.machines;
-                
-                me.newValue = {
-                    'code': '',
-                    'name': '',
-                    'model': '',
-                    'specId': {},
-                }
-            },
-
             closeDialog(){
                 this.openDialog = false
             },

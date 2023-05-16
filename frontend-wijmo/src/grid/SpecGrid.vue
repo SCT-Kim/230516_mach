@@ -12,7 +12,7 @@
             </v-btn>
             <excel-export-button :exportService="this.exportService" :getFlex="getFlex" />
         </div>
-        <MachineViewQuery @search="search"></MachineViewQuery>
+        <SepcViewQuery @search="search"></SepcViewQuery>
 
         <!-- the grid -->
         <wj-flex-grid
@@ -30,12 +30,10 @@
             :selectionChanged="onSelectionChanged"
             style="margin-top:10px; max-height:65vh;"
         >
-            <wj-flex-grid-filter :filterColumns="['code','name','model','specId',]" />
+            <wj-flex-grid-filter :filterColumns="['specCd','specNm',]" />
             <wj-flex-grid-column binding="index" header="Number" width="2*" :isReadOnly="true" align="center" />
-            <wj-flex-grid-column binding="code" header="code" width="2*" :isReadOnly="true" align="center" />
-            <wj-flex-grid-column binding="name" header="name" width="2*" :isReadOnly="true" align="center" />
-            <wj-flex-grid-column binding="model" header="model" width="2*" :isReadOnly="true" align="center" />
-            <wj-flex-grid-column binding="specId." header="spec" width="2*" :isReadOnly="true" align="center" />
+            <wj-flex-grid-column binding="specCd" header="specCd" width="2*" :isReadOnly="true" align="center" />
+            <wj-flex-grid-column binding="specNm" header="specNm" width="2*" :isReadOnly="true" align="center" />
         </wj-flex-grid>
         <v-col style="margin-bottom:40px;">
             <div class="text-center">
@@ -46,11 +44,11 @@
                     hide-overlay
                     transition="dialog-bottom-transition"
                 >
-                    <Machine :offline="offline"
+                    <Spec :offline="offline"
                         class="video-card"
                         :isNew="!selectedItem"
                         :editMode="true"
-                        v-model="machineModel"
+                        v-model="specModel"
                         @add="append"
                     />
                     <v-btn
@@ -69,8 +67,8 @@
 </template>
 
 <script>
-import MachineViewQuery from '../components/MachineViewQuery.vue';
-import Machine from '../components/Machine.vue'
+import SepcViewQuery from '../components/SepcViewQuery.vue';
+import Spec from '../components/Spec.vue'
 
 const axios = require('axios').default;
 
@@ -86,11 +84,11 @@ import { ExportService } from "./export";
 import * as wjcCore from "@grapecity/wijmo";
 
 export default {
-    name : 'machine-grid',
-    mixins:[Machine],
+    name : 'spec-grid',
+    mixins:[Spec],
     components:{
-        MachineViewQuery,
-        Machine,
+        SepcViewQuery,
+        Spec,
     },
     data: () => ({
         tick : true,
@@ -99,7 +97,7 @@ export default {
         selectedGrid: null,
     }),
     computed: {
-        machineModel: {
+        specModel: {
             get() {
                 return this.selectedItem || this.newValue;
             },
@@ -181,7 +179,7 @@ export default {
                     const view = flexGrid.collectionView;
                     
                     if (view.currentItem) {
-                        const deleteUrl = view.currentItem._links.machine.href;
+                        const deleteUrl = view.currentItem._links.spec.href;
                         await axios.delete(axios.fixUrl(deleteUrl));
                         
                         view.remove(view.currentItem);

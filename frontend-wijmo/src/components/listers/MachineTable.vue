@@ -69,8 +69,8 @@
                     { text: "id", value: "id" },
                     { text: "code", value: "code" },
                     { text: "name", value: "name" },
-                    { text: "spec", value: "spec" },
                     { text: "model", value: "model" },
+                    { text: "specId", value: "specId" },
                 ],
             machine : [],
             newValue: {},
@@ -90,8 +90,8 @@
             this.newValue = {
                 'code': '',
                 'name': '',
-                'spec': '',
                 'model': '',
+                'specId': {},
             }
         },
         methods: {
